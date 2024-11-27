@@ -29,36 +29,36 @@ include 'logic.php';
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($products as $product): ?>
+                <?php foreach ($products as $matHang): ?>
                 <tr>
-                    <td><?= $product['name'] ?></td>
-                    <td><?= $product['price'] ?></td>
+                    <td><?= $matHang['name'] ?></td>
+                    <td><?= $matHang['price'] ?></td>
                     <td>
-                        <button class="editProductBtn" data-id="<?= $product['id'] ?>"
-                            data-name="<?= $product['name'] ?>" data-price="<?= $product['price'] ?>">✏️</button>
+                        <button class="editProductBtn" data-id="<?= $matHang['id'] ?>"
+                            data-name="<?= $matHang['name'] ?>" data-price="<?= $matHang['price'] ?>">✏️</button>
                         <div id="editProductModal" class="modal">
                             <div class="contentModal">
                                 <span class="close" data-close-modal="editProductModal">Thoát</span>
                                 <h2>Chỉnh sửa</h2>
                                 <form method="POST" id="editProductForm">
                                     <input type="hidden" name="action" value="edit">
-                                    <input type="hidden" name="id" id="editProductId">
-                                    <input type="text" name="name" id="editProductName" required>
-                                    <input type="text" name="price" id="editProductPrice" required>
+                                    <input type="hidden" name="idSp" id="editProductId">
+                                    <input type="text" name="nameSp" id="editProductName" required>
+                                    <input type="text" name="priceSp" id="editProductPrice" required>
                                     <button type="submit">Cập nhật</button>
                                 </form>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <button class="deleteProductBtn" data-id="<?= $product['id'] ?>">🗑️</button>
+                        <button class="deleteProductBtn" data-id="<?= $matHang['id'] ?>">🗑️</button>
                         <div id="deleteProductModal" class="modal">
                             <div class="contentModal">
                                 <span class="close" data-close-modal="deleteProductModal">Thoát</span>
                                 <h2>Xoá</h2>
                                 <form method="POST" id="deleteProductForm">
                                     <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="id" id="deleteProductId">
+                                    <input type="hidden" name="idSp" id="deleteProductId">
                                     <p>Bạn có muốn xoá sản phẩm không</p>
                                     <button type="submit">Xác nhận có xoá</button>
                                 </form>

@@ -9,9 +9,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])){
     }
     else if($_POST['action'] == 'edit'){
         foreach($products as &$product){
-            if($product['id'] == $_POST['id']){
-                $product['name'] = htmlspecialchars($_POST['name']);
-                $product['price'] = htmlspecialchars($_POST['price']);
+            if($product['id'] == $_POST['idSp']){
+                $product['name'] = htmlspecialchars($_POST['nameSp']);
+                $product['price'] = htmlspecialchars($_POST['priceSp']);
                 break;
             }
         }
@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])){
     }
     else if($_POST['action'] == "delete"){
         foreach($products as $key => $item){
-            if($item['id'] == $_POST['id']){
+            if($item['id'] == $_POST['idSp']){
                 unset($products[$key]);
                 break;
             }

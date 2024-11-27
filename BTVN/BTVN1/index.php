@@ -15,16 +15,20 @@ include 'data.php';
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($products as $product): ?>
+                <?php if(!isset($products) || !is_array($products)){
+                    echo "Dữ liệu không hợp lệ";
+                    exit;
+                } ?>
+                <?php foreach ($products as $matHang): ?>
                 <tr>
-                    <td><?= $product['name'] ?></td>
-                    <td><?= $product['price'] ?></td>
+                    <td><?= $matHang['name'] ?></td>
+                    <td><?= $matHang['price'] ?></td>
                     <td>
-                        <button class="editProductBtn" data-id="<?= $product['id'] ?>"
-                            data-name="<?= $product['name'] ?>" data-price="<?= $product['price'] ?>">✏️</button>
+                        <button class="editProductBtn" data-id="<?= $matHang['id'] ?>"
+                            data-name="<?= $matHang['name'] ?>" data-price="<?= $matHang['price'] ?>">✏️</button>
                     </td>
                     <td>
-                        <button class="deleteProductBtn" data-id="<?= $product['id'] ?>">🗑️</button>
+                        <button class="deleteProductBtn" data-id="<?= $matHang['id'] ?>">🗑️</button>
                     </td>
                 </tr>
 
