@@ -21,7 +21,8 @@ class FlowerCon {
                 case 'add':
                     $this->flowerMo->addFlower([
                         'ten' => htmlspecialchars($_POST['ten']),
-                        'moTa' => htmlspecialchars($_POST['moTa'])
+                        'moTa' => htmlspecialchars($_POST['moTa']),
+                        'img' => 'images/hoa7.png'
                     ]);
                     break;
                 case 'edit':
