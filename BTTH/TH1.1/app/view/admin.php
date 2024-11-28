@@ -7,7 +7,7 @@
                 <div class="modal-content">
                     <h2>Thêm hoa mới</h2>
                     <span class="close" data-close-modal="addModal">CLOSE</span>
-                    <form method="POST" action="index.php?action=CRUD">
+                    <form method="POST">
                         <input type="hidden" name="action" value="add">
                         <input type="text" name="ten" placeholder="Tên loại hoa" required>
                         <input type="text" name="moTa" placeholder="Mô tả loại hoa" required>
@@ -47,7 +47,7 @@
             <div class="modal-content">
                 <span class="close" data-close-modal="editProductModal">CLOSE</span>
                 <h2>Sửa sản phẩm</h2>
-                <form method="POST" id="editProductForm" action="index.php?action=CRUD">
+                <form method="POST" id="editProductForm">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" id="editProductId">
                     <input type="text" name="ten" id="editProductName" required>
@@ -60,7 +60,7 @@
             <div class="modal-content">
                 <span class="close" data-close-modal="deleteProductModal">CLOSE</span>
                 <h2>Xóa sản phẩm</h2>
-                <form method="POST" id="deleteProductForm" action="index.php?action=CRUD">
+                <form method="POST" id="deleteProductForm">
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="id" id="deleteProductId">
                     <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
