@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>CRUD QLDA</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -316,116 +317,77 @@
 </head>
 
 <body>
-    <div class="container-xl">
-        <div class="table-responsive">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h2>Quản lý <b>Đồ án sinh viên</b></h2>
+    <div id="editEmployeeModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('update', $students->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h4 class="modal-title">Show quản lý đồ án sinh viên</h4>
+                        <a href="{{ route('home') }}"><button type="button" class="close"
+                                aria-hidden="true">&times;</button></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="computer_name">Tên máy tính</label>
+                            <select class="form-control" id="computer_id" name="computer_id" disabled>
+                                @foreach($computers as $computer)
+                                <option value="{{ $computer->id }}"
+                                    {{ $computer->id == $students->computer_id ? 'selected' : '' }}>
+                                    {{ $computer->computer_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="{{route('create')}}" class="btn btn-success"><i class="material-icons">&#xE147;</i>
-                                <span>Add New Employee</span></a>
-                            <a href="#deleteEmployeeModal" class="btn btn-danger"><i class="material-icons">&#xE15C;</i>
-                                <span>Delete</span></a>
+                        <div class="form-group">
+                            <label for="model">Tên phiên bản</label>
+                            <select class="form-control" id="model" name="model" disabled>
+                                @foreach($computers as $computer)
+                                <option value="{{ $computer->id }}"
+                                    {{ $computer->id == $students->computer_id ? 'selected' : '' }}>
+                                    {{ $computer->model }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Báo cáo sự cố</label>
+                            <input type="text" id="content" name="reported_by" class="form-control"
+                                value="{{$students->reported_by}}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="reported_date">Thời gian báo cáo</label>
+                            <input type="datetime-local" id="reported_date" name="reported_date" class="form-control"
+                                value="{{ $students->reported_date }}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="urgency">Mức độ sự cố</label>
+                            <select class="form-control" id="urgency" name="urgency" disabled>
+                                <option value="Low" {{ $students->urgency == 'Low' ? 'selected' : '' }}>Low</option>
+                                <option value="Medium" {{ $students->urgency == 'Medium' ? 'selected' : '' }}>Medium
+                                </option>
+                                <option value="High" {{ $students->urgency == 'High' ? 'selected' : '' }}>High</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Trạng thái hiện tại</label>
+                            <select class="form-control" id="status" name="status" disabled>
+                                <option value="Open" {{ $students->status == 'Open' ? 'selected' : '' }}>Open</option>
+                                <option value="In Progress" {{ $students->status == 'In Progress' ? 'selected' : '' }}>
+                                    In Progress</option>
+                                <option value="Resolved" {{ $students->status == 'Resolved' ? 'selected' : '' }}>
+                                    Resolved</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-                @if(session('success'))
-                <div class="alert alert-success">
-                    {{session('success')}}
-                </div>
-                @endif
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
-                            </th>
-                            <th>Mã vấn đề</th>
-                            <th>Tên máy tính</th>
-                            <th>Tên phiên bản</th>
-                            <th>Báo cáo sự cố</th>
-                            <th>Thời gian báo cáo</th>
-                            <th>Mức độ sự cố</th>
-                            <th>Trạng thái hiện tại</th>
-                            <th>Chức năng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($students as $student)
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                    <label for="checkbox1"></label>
-                                </span>
-                            </td>
-                            <td>{{ $student->id }}</td>
-                            <td>{{ $student->computer->computer_name }}</td>
-                            <td>{{ $student->computer->model }}</td>
-                            <td>{{ $student->reported_by }}</td>
-                            <td>{{ $student->reported_date }}</td>
-                            <td>{{ $student->urgency}}</td>
-                            <td>{{ $student->status}}</td>
-
-                            <td>
-                                <a href="{{route('edit',$student->id)}}" class="edit"><i class="material-icons"
-                                        data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal{{ $student->id }}" data-id="{{ $student->id }}"
-                                    class="delete" data-toggle="modal"><i class=" material-icons" data-toggle="tooltip"
-                                        title="Delete">&#xE872;</i></a>
-                                <a href="{{ route('show', $student->id) }}" class="view-details">
-                                    <i class="material-icons" data-toggle="tooltip" title="View Details">&#xE8F4;</i>
-                                </a>
-                                <div id="deleteEmployeeModal{{ $student->id }}" class="modal fade">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Delete Employee</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-hidden="true">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Are you sure you want to delete these Records?</p>
-                                                <p class="text-warning"><small>This action cannot be undone.</small></p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <input type="button" class="btn btn-default" data-dismiss="modal"
-                                                    value="Cancel">
-                                                <form method="POST" id="deleteForm"
-                                                    action="{{ route('destroy',$student->id) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Xóa</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-
-                        </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-center">
-                    {{ $students->links('pagination::bootstrap-4') }}
-                </div>
+                    <div class="modal-footer">
+                        <a href="{{ route('home') }}"><input type="button" class="btn btn-default" value="Cancel"></a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Edit Modal HTML -->
-
-    <!-- Edit Modal HTML -->
-
-    <!-- Delete Modal HTML -->
-
 </body>
+
 
 </html>

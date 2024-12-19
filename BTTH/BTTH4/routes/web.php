@@ -10,3 +10,4 @@ Route::delete('/theses/{id}', [ThesisController::class, 'destroy'])->name('destr
 Route::post('/theses', [ThesisController::class, 'store'])->name('store');
 Route::get('/theses/{id}/edit', [ThesisController::class, 'edit'])->name('edit');
 Route::put('/theses/{id}', [ThesisController::class, 'update'])->name('update');
+Route::get('/theses/{id}', [ThesisController::class, 'show'])->name('show');

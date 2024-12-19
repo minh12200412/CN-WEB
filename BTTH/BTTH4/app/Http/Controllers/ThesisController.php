@@ -60,5 +60,12 @@ class ThesisController extends Controller
     
         return redirect()->route('home')->with('success', 'Đồ án được cập nhật thành công');
     }
+    public function show($id)
+    {
+        $students = issues::findOrFail($id);
+        $computers = computer::all();
+        return view('show', compact('students', 'computers'));
+    }
+    
 
 }
